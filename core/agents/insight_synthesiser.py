@@ -101,7 +101,7 @@ class InsightSynthesiser:
         self,
         use_case: str = "churn_prediction",
         task_type: str = "classification",
-        aws_region: str = "us-east-1",
+        aws_region: str = "us-west-2",
         model_id: str | None = None,
     ) -> None:
         self.use_case = use_case
@@ -235,8 +235,19 @@ class InsightSynthesiser:
     def _invoke_bedrock(self, prompt: str) -> dict[str, Any]:
         """Call Amazon Bedrock Claude and parse the JSON response."""
         import boto3  # noqa: PLC0415
+        from botocore.config import Config
 
-        client = boto3.client("bedrock-runtime", region_name=self.aws_region)
+        config = Config(
+            connect_timeout=10,
+            read_timeout=120,
+            retries={"max_attempts": 2},
+        )
+
+        client = boto3.client(
+            "bedrock-runtime",
+            region_name=self.aws_region,
+            config=config,
+        )
 
         body = json.dumps({
             "anthropic_version": "bedrock-2023-05-31",

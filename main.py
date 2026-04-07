@@ -70,9 +70,9 @@ Examples:
     )
     parser.add_argument(
         "--aws-region",
-        default="us-east-1",
+        default="us-west-2",
         dest="aws_region",
-        help="AWS region for Bedrock (default: us-east-1)",
+        help="AWS region for Bedrock (default: us-west-2)",
     )
     parser.add_argument(
         "--multi-source",

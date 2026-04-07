@@ -55,7 +55,7 @@ class DiscoveryOrchestrator:
         use_case: str = "churn_prediction",
         task_type: str = "classification",
         output_dir: str | Path = "./output",
-        aws_region: str = "us-east-1",
+        aws_region: str = "us-west-2",
         multi_source: bool = False,
     ) -> None:
         self.use_case = use_case
